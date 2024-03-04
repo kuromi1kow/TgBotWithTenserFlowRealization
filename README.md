@@ -1,5 +1,6 @@
 # TgBotWithTenserFlowRealization
 ![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/3e1a640a-d862-4081-b05c-3288763e3845)
+LOCALHOST TG BOT
 # Singer Recommendation Bot
 ## Overview
 This project is a Singer and Music Recommendation System implemented in Google Colab. It leverages user data to provide personalized music recommendations. The system analyzes user preferences and similarity to suggest artists and songs, enhancing the music discovery experience.
