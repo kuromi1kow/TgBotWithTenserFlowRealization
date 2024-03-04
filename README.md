@@ -1,15 +1,26 @@
 # TgBotWithTenserFlowRealization
 ![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/3e1a640a-d862-4081-b05c-3288763e3845)
 # Singer Recommendation Bot
-
 ## Overview
-This project is an implementation of a Telegram bot that provides singer recommendations. It utilizes various technologies and libraries such as pandas, Flask, NumPy, TensorFlow, and the Telegram Bot API to create an interactive and engaging experience.
-# Music Recommendation System
+This project is a Singer and Music Recommendation System implemented in Google Colab. It leverages user data to provide personalized music recommendations. The system analyzes user preferences and similarity to suggest artists and songs, enhancing the music discovery experience.
+## Historical Context: The Netflix Prize
+A few years ago, Netflix held a competition with a prize of 1 million dollars, aimed at improving their movie recommendation algorithm. This contest highlighted the importance and complexity of accurate recommendation systems in modern applications.
 
-## Overview
-This project is a Music Recommendation System implemented in Google Colab. It leverages user data to provide personalized music recommendations. The system analyzes user preferences and similarity to suggest artists and songs, enhancing the music discovery experience.
+## How Recommendation Algorithms Work
+Recommendation algorithms, such as those used in this project, operate based on similarity measures between users or items. The key idea is to recommend products (in our case, songs or artists) that are favored by users who are most similar to the target user. Different measures can be employed to quantify this similarity, including:
 
-## Features of the Google Colab Code
+- **Cosine Similarity**: Measures the cosine of the angle between two vectors, representing user preferences in a multi-dimensional product space.
+- **Pearson Correlation Coefficient**: Assesses the linear correlation between two variables (users or items).
+- **Euclidean Distance**: The "straight-line" distance between two points in Euclidean space.
+- **Tanimoto Coefficient**
+- **Manhattan Distance**, and others.
+
+Among these, cosine similarity and Pearson correlation are often preferred in recommendation systems. This project particularly implements cosine similarity, conceptualizing it as the cosine of the angle between two vectors in a product space. For this project we use :![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/5db60eb5-401e-4252-b3b4-f1b53456b2f9)
+this math formula for filtration.
+After filtration we must be give recommendation with the help this math formula:
+![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/b6afd81f-6bd7-4b59-87a4-bbb55d0b9b78)
+
+## Features of the Jupyter Code
 
 ### User Similarity Analysis
 The code performs similarity analysis between users, identifying which users are most closely related to a given input, such as an artist named "artist_name".
@@ -42,15 +53,12 @@ Can be used to analyze the network of user interactions and preferences, helping
 
 ### Content Filtering
 Acts as a basis for content filtering mechanisms by identifying relevant content (songs, artists) to a user based on similarity metrics.
+![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/d7de9d5a-bbfc-440c-bbe8-a9a533434f26)
+![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/57e2e63b-f18f-4252-aeb2-13c19ba3bb0c)
 
 ## How it Works
-The bot receives an artist name from the user and processes it. The core logic for generating recommendations (if implemented) would be handled by a Flask server, which can use machine learning models built with TensorFlow to analyze and predict similar artists or songs.
+The bot receives an artist name from the user and processes it. The core logic for generating recommendations would be handled by a Flask server, which can use machine learning models built with TensorFlow to analyze and predict similar artists or songs.
 
-## Setup and Installation
-(Provide detailed steps on setting up and running your project, including installing dependencies, setting up the Flask server, and running the Telegram bot.)
-
-## Usage
-Just write in our tg bot or you can just write in google collab.
 ## Technologies Used
 - Python
 - pandas
