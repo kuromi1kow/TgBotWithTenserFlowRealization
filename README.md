@@ -55,7 +55,7 @@ Can be used to analyze the network of user interactions and preferences, helping
 Acts as a basis for content filtering mechanisms by identifying relevant content (songs, artists) to a user based on similarity metrics.
 ![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/d7de9d5a-bbfc-440c-bbe8-a9a533434f26)
 ![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/57e2e63b-f18f-4252-aeb2-13c19ba3bb0c)
-
+If you ask why the accuracy is 50%, it means that we have two identical genres, two different ones, and the accuracy also depends heavily on the popularity and rating of the musician.
 ## How it Works
 The bot receives an artist name from the user and processes it. The core logic for generating recommendations would be handled by a Flask server, which can use machine learning models built with TensorFlow to analyze and predict similar artists or songs.
 
