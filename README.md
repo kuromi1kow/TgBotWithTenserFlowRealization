@@ -12,7 +12,7 @@ This project is a Music Recommendation System implemented in Google Colab. It le
 ## Features of the Google Colab Code
 
 ### User Similarity Analysis
-The code performs similarity analysis between users, identifying which users are most closely related to a given input, such as an artist named "Speaker".
+The code performs similarity analysis between users, identifying which users are most closely related to a given input, such as an artist named "artist_name".
 
 ### Coefficient-Based Matching
 It employs a coefficient, presumably a similarity score, to determine the closeness of other users to the input. Techniques like cosine similarity may be used.
