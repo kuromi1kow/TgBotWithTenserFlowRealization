@@ -5,7 +5,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-TOKEN = '6844389681:AAEXdaHAygxbSo9GYcpfO9SlMely1t2fEJg'
+TOKEN = 'Where token?????? :) (token -> in my tg saves)'
 
 def start(update, context):
     update.message.reply_text('Send me an artist name to get recommendations.')
