@@ -4,8 +4,7 @@ LOCALHOST TG BOT
 # Singer Recommendation Bot
 ## Overview
 This project is a Singer and Music Recommendation System implemented in Google Colab. It leverages user data to provide personalized music recommendations. The system analyzes user preferences and similarity to suggest artists and songs, enhancing the music discovery experience.
-## Historical Context: The Netflix Prize
-A few years ago, Netflix held a competition with a prize of 1 million dollars, aimed at improving their movie recommendation algorithm. This contest highlighted the importance and complexity of accurate recommendation systems in modern applications.
+.
 
 ## How Recommendation Algorithms Work
 Recommendation algorithms, such as those used in this project, operate based on similarity measures between users or items. The key idea is to recommend products (in our case, songs or artists) that are favored by users who are most similar to the target user. Different measures can be employed to quantify this similarity, including:
