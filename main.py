@@ -11,36 +11,26 @@ userRates = joblib.load('userRates.pkl')
 
 TOKEN = ''
 BOT_USERNAME: Final = '@MusicRecommendationAituBot'
-def ReadFile(filename="music.csv"):
-    with open(filename, newline='', encoding='utf-8') as f:
-        reader = csv.reader(f)
-        mentions = dict()
+def preprocess(artist_name):
+    processed_input = encode_artist_name(artist_name) 
+    return processed_input
 
-        for line in reader:
-            user = line[6]
-            product = line[23] 
-            user_terms_index = 24 
+def postprocess(predictions):
+    readable_predictions = decode_predictions(predictions)  
+    return readable_predictions
 
-            try:
-                rate = float(line[0])  # 'artist.familiarity' as rating
-                user_terms = line[user_terms_index]
-            except ValueError:
-                continue 
+async def get_model_predictions(artist_name):
+    processed_input = preprocess(artist_name)
+    predictions = model.predict(processed_input)
+    readable_predictions = postprocess(predictions)
+    return readable_predictions
 
-            if user not in mentions:
-                mentions[user] = {"ratings": dict(), "terms": user_terms}
-            mentions[user]["ratings"][product] = rate
-
-    return mentions
+# Modify handle_recommendation to use the new function
 async def handle_recommendation(update: Update, context: ContextTypes.DEFAULT_TYPE):
     artist_name = update.message.text
-
-    if artist_name in userRates:
-        response_message = makeRecommendation(artist_name, userRates, 15, 15)
-    else:
-        response_message = "No data found for artist '{artist_name}'."
-
+    response_message = await get_model_predictions(artist_name)
     await update.message.reply_text(response_message)
+
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text('Hello there! Send me an artist name to get recommendations.')
 
