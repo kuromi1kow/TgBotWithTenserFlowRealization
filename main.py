@@ -1,34 +1,63 @@
-import logging
-import requests
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import csv
+import math
+from typing import Final
+from telegram import Update
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from tensorflow.keras.models import load_model
+import joblib
 
-# Enable logging
-logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+model = load_model('music_recommendation_model.h5')
+userRates = joblib.load('userRates.pkl')
 
-TOKEN = 'Where token?????? :) (token -> in my tg saves)'
+TOKEN = ''
+BOT_USERNAME: Final = '@MusicRecommendationAituBot'
+def ReadFile(filename="music.csv"):
+    with open(filename, newline='', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        mentions = dict()
 
-def start(update, context):
-    update.message.reply_text('Send me an artist name to get recommendations.')
+        for line in reader:
+            user = line[6]
+            product = line[23] 
+            user_terms_index = 24 
 
-def handle_message(update, context):
+            try:
+                rate = float(line[0])  # 'artist.familiarity' as rating
+                user_terms = line[user_terms_index]
+            except ValueError:
+                continue 
+
+            if user not in mentions:
+                mentions[user] = {"ratings": dict(), "terms": user_terms}
+            mentions[user]["ratings"][product] = rate
+
+    return mentions
+async def handle_recommendation(update: Update, context: ContextTypes.DEFAULT_TYPE):
     artist_name = update.message.text
-    try:
-        response = requests.post('http://127.0.0.1:5000/recommend', json={'artist_name': artist_name})
-        if response.status_code == 200:
-            update.message.reply_text(response.json().get('results', 'No recommendations found.'))
-        else:
-            update.message.reply_text(f"Error getting recommendations. Status code: {response.status_code}")
-            logging.error(f"Error response: {response.text}")
-    except requests.RequestException as e:
-        logging.error(f"Request failed: {e}")
-        update.message.reply_text("Failed to get recommendations.")
-def main():
-    updater = Updater(TOKEN, use_context=True)
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
-    updater.start_polling()
-    updater.idle()
 
+    if artist_name in userRates:
+        response_message = makeRecommendation(artist_name, userRates, 15, 15)
+    else:
+        response_message = "No data found for artist '{artist_name}'."
+
+    await update.message.reply_text(response_message)
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text('Hello there! Send me an artist name to get recommendations.')
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text('Send an artist name to get music recommendations.')
+
+# Error Handler
+async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    print(f'Update {update} caused error {context.error}')
+
+# Main Function
 if __name__ == '__main__':
-    main()
+    app = Application.builder().token(TOKEN).build()
+
+    app.add_handler(CommandHandler('start', start_command))
+    app.add_handler(CommandHandler('help', help_command))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_recommendation))
+    app.add_error_handler(error)
+
+    app.run_polling()
