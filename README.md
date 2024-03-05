@@ -1,5 +1,6 @@
 # TgBotWithTenserFlowRealization
-![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/3e1a640a-d862-4081-b05c-3288763e3845)
+![image](https://github.com/kuromi1kow/TgBotWithTenserFlowRealization/assets/112749419/b89953c8-18cb-4cea-9d3f-f976b581fdcc)
+
 LOCALHOST TG BOT
 # Singer Recommendation Bot
 ## Overview
